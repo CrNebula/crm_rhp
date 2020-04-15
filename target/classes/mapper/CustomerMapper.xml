@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rhp.crm.mapper.CustomerMapper">
+
+    <resultMap id="Map" type="com.rhp.crm.entity.Customer">
+        <id column="customer_id"  property="customerId" />
+        <result column="customer_name"  property="customerName" />
+        <result column="sex"  property="sex" />
+        <result column="address" property="address"/>
+        <result column="telephone" property="telephone"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_del" property="isDel"/>
+    </resultMap>
+
+    <select id="selectAll" resultMap="Map">
+        select * from customer
+    </select>
+
+    <insert id="add" parameterType="com.rhp.crm.entity.Customer">
+        insert into customer values (null,#{customerName},#{sex},#{address},#{telephone},NOW(),NOW(),#{isDel})
+    </insert>
+
+    <update id="update" parameterType="com.rhp.crm.entity.Customer">
+        update customer set customer_name=#{customerName},sex=#{sex},telephone=#{telephone},update_time=#{updateTime} where customer_id=#{customerId}
+    </update>
+
+    <delete id="del" parameterType="Integer">
+        delete from customer where is_del=#{isDel}
+    </delete>
+
+</mapper>

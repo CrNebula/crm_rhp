@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.rhp.crm.mapper.OrdersMapper">
+
+    <resultMap id="Map" type="com.rhp.crm.entity.Orders">
+        <id column="orders_id" property="ordersId"/>
+        <result column="orders_time" property="ordersTime"/>
+        <result column="price" property="price"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
+        <result column="is_del" property="isDel"/>
+        <association property="customer" javaType="com.rhp.crm.entity.Customer">
+            <result column="customer_id"  property="customerId" />
+            <result column="customer_name"  property="customerName" />
+            <result column="sex"  property="sex" />
+            <result column="address" property="address"/>
+            <result column="telephone" property="telephone"/>
+            <result column="create_time" property="createTime"/>
+            <result column="update_time" property="updateTime"/>
+            <result column="is_del" property="isDel"/>
+        </association>
+    </resultMap>
+
+    <select id="selectAll" resultMap="Map">
+        select
+            o.orders_id,o.orders_time,o.price,c.customer_name,c.sex,c.address,c.telephone
+        from
+            orders o,customer c
+        where
+            o.customer_id=c.customer_id
+    </select>
+
+</mapper>
